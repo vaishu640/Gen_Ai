@@ -1,0 +1,17 @@
+[
+  {"id": 1, "product": "Organic Turmeric", "farm": "Sangli farmer", "location": "Sangli, Maharashtra", "category": "spice", "certification": "NPOP", "price_per_kg": 180},
+  {"id": 2, "product": "Organic Jaggery", "farm": "Kolhapur farmer", "location": "Kolhapur, Maharashtra", "category": "sweetener", "certification": "NPOP", "price_per_kg": 95},
+  {"id": 3, "product": "Organic Basmati Rice", "farm": "Dehradun farmer", "location": "Dehradun, Uttarakhand", "category": "grain", "certification": "NPOP", "price_per_kg": 140},
+  {"id": 4, "product": "Organic Jowar", "farm": "Solapur farmer", "location": "Solapur, Maharashtra", "category": "grain", "certification": "NPOP", "price_per_kg": 70},
+  {"id": 5, "product": "Organic Pomegranate", "farm": "Sangola farmer", "location": "Solapur, Maharashtra", "category": "fruit", "certification": "NPOP", "price_per_kg": 160},
+  {"id": 6, "product": "Organic Banana", "farm": "Jalgaon farmer", "location": "Jalgaon, Maharashtra", "category": "fruit", "certification": "NPOP", "price_per_kg": 60},
+  {"id": 7, "product": "Organic Tea", "farm": "Darjeeling estate", "location": "Darjeeling, West Bengal", "category": "beverage", "certification": "NPOP", "price_per_kg": 900},
+  {"id": 8, "product": "Organic Cardamom", "farm": "Idukki farmer", "location": "Idukki, Kerala", "category": "spice", "certification": "NPOP", "price_per_kg": 2200},
+  {"id": 9, "product": "Organic Black Pepper", "farm": "Wayanad farmer", "location": "Wayanad, Kerala", "category": "spice", "certification": "NPOP", "price_per_kg": 650},
+  {"id": 10, "product": "Organic Wheat", "farm": "Indore farmer", "location": "Indore, Madhya Pradesh", "category": "grain", "certification": "NPOP", "price_per_kg": 45},
+  {"id": 11, "product": "Organic Soybean", "farm": "Ujjain farmer", "location": "Ujjain, Madhya Pradesh", "category": "pulse", "certification": "NPOP", "price_per_kg": 80},
+  {"id": 12, "product": "Organic Tur Dal", "farm": "Latur farmer", "location": "Latur, Maharashtra", "category": "pulse", "certification": "NPOP", "price_per_kg": 130},
+  {"id": 13, "product": "Organic Groundnut", "farm": "Junagadh farmer", "location": "Junagadh, Gujarat", "category": "oilseed", "certification": "NPOP", "price_per_kg": 120},
+  {"id": 14, "product": "Organic Cotton", "farm": "Yavatmal farmer", "location": "Yavatmal, Maharashtra", "category": "fiber", "certification": "NPOP", "price_per_kg": 90},
+  {"id": 15, "product": "Organic Mango", "farm": "Ratnagiri farmer", "location": "Ratnagiri, Maharashtra", "category": "fruit", "certification": "NPOP", "price_per_kg": 250}
+]
