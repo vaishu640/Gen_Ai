@@ -1,0 +1,154 @@
+[
+  {
+    "topic": "Local group minimum size",
+    "rule": "A local group needs at least 5 members from the same or nearby villages with continuous territory. A group of about 7 to 10 is advisable so the group is not lost if a few members leave. If members fall below 5, the group becomes individual status and needs RC inspection or peer inspection by a nearby group, possibly at extra cost.",
+    "applies_to": "local group",
+    "stage": "formation",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s4.1(a), s5.1",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Land holding limit per member (Edition 2)",
+    "rule": "The land of one member must not exceed 50% of the total land under the group.",
+    "applies_to": "farmer member",
+    "stage": "formation",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s4.1(e)",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Land holding limit per member (FAQ page)",
+    "rule": "The FAQ page says one member's holding must not exceed one third of the group's total land. This differs from the 2023 Guidelines (50%), so always state which document the figure comes from.",
+    "applies_to": "farmer member",
+    "stage": "formation",
+    "source_doc": "PGS-India FAQ page",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Registration documents",
+    "rule": "Each member needs a signed application form, farm history sheet and farmer pledge. Mobile and Aadhaar numbers are mandatory, bank details are optional. The group file also keeps the group agreement, farm maps with GPS coordinates, and one year of input and practice history for every member.",
+    "applies_to": "farmer member",
+    "stage": "registration",
+    "source_doc": "PGS-India FAQ page; PGS-India Revised Guidelines, Edition 2 (2023), s4.2(c)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Farmer pledge",
+    "rule": "Every member must sign the PGS organic pledge and the group agreement. The pledge is mandatory written proof of the member's commitment to organic practice.",
+    "applies_to": "farmer member",
+    "stage": "registration",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s4.1(d), s4.2(a); PGS-India FAQ page",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Endorsement of a new group",
+    "rule": "Before registration the group's farms must be endorsed once by another registered PGS group. If none is nearby, the district agriculture officer or the Regional Council can verify the group. Groups formed under government schemes such as PKVY are endorsed by the district scheme officer.",
+    "applies_to": "local group",
+    "stage": "registration",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s4.2(f), (i), (j)",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Start of conversion",
+    "rule": "Conversion starts on the date the Regional Council grants registration. Only crops sown after registration approval qualify for PGS-Green, and using earlier seasons' data counts as a major non-compliance.",
+    "applies_to": "local group",
+    "stage": "conversion",
+    "source_doc": "PGS-India FAQ page; PGS-India Revised Guidelines, Edition 2 (2023), s5.1 step 4",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "PGS-Green versus PGS-Organic",
+    "rule": "PGS-Organic is for farmers who completed the full conversion period with no major or serious non-compliance. PGS-Green is for farmers still in conversion or with one or more major non-compliances. PGS-Green is not a diluted organic standard, it is the same system during the conversion period.",
+    "applies_to": "farmer member",
+    "stage": "certification",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s5.2; PGS-India FAQ page",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "PGS-Green time limit",
+    "rule": "No member can hold PGS-Green status for more than 3 years for annual crops or 4 years for plantation or permanent crops. A member who still cannot qualify as PGS-Organic after that is sanctioned and excluded from the group.",
+    "applies_to": "farmer member",
+    "stage": "conversion",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s5.2",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Peer appraisal team",
+    "rule": "Each appraisal team needs at least 3 peer appraisers, and at least one must be literate and able to fill the forms. Reciprocal review is not allowed (A reviews B and B reviews A), and appraisers should be rotated.",
+    "applies_to": "local group",
+    "stage": "peer-appraisal",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s5.1 step 3; PGS-India FAQ page",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Peer appraisal frequency",
+    "rule": "Every farm must be reviewed at least once in each season, and the farmer or a family member must be present. Edition 2 also says each farm should be appraised twice a year (s4.2(o)) and mentions a two-member team there, so check the Format-9 worksheet for the exact procedure.",
+    "applies_to": "local group",
+    "stage": "peer-appraisal",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s5.1 step 3, s4.2(o); PGS-India FAQ page",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Group meetings (Edition 2)",
+    "rule": "Annual-crop groups hold 4 meetings a year (perennial-crop groups hold 2), and each member must attend at least 50% of them. The first training must happen within 6 months of registration.",
+    "applies_to": "local group",
+    "stage": "certification",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s4.2(k), (l), s6.1.1",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Group meetings (FAQ page)",
+    "rule": "The FAQ page says a group must meet at least 6 times a year and each member must attend at least 3 meetings. This differs from Edition 2 (4 meetings, 50% attendance), so state the document.",
+    "applies_to": "local group",
+    "stage": "certification",
+    "source_doc": "PGS-India FAQ page",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Large-area certification condition",
+    "rule": "Large-area certification works village by village: one village is one group, and all farming members must follow PGS-India standards. The area needs no synthetic input or GMO use for at least 3 years, with an administrative ban on their sale. The Gram Panchayat must make every grower sign the pledge. Individual farmers and processors do not qualify.",
+    "applies_to": "village",
+    "stage": "certification",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s4.5, s1.2.3",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Single defaulter consequence (large area)",
+    "rule": "Under large-area certification, even one farmer's default can cancel the organic status of the entire village, and repeated defaults can cancel certification of the whole geographic block.",
+    "applies_to": "village",
+    "stage": "non-compliance",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s4.5(m); PGS-India FAQ page",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "PGS standards and NPOP/NSOP",
+    "rule": "PGS-India standards are the same as the National Standards for Organic Production (NSOP) under NPOP, and any NSOP amendment is treated as included. When a section is unclear, refer to NSOP. Food-processing additives and aids follow the NSOP approved list.",
+    "applies_to": "farmer member",
+    "stage": "standards",
+    "source_doc": "PGS-India FAQ page; PGS-India Revised Guidelines, Edition 2 (2023), s5.4(l)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Prohibited substances",
+    "rule": "Using chemical fertilizers, pesticides or hormones is a serious non-compliance: the member's status drops to zero, and the member is excluded or must re-register and complete the full conversion. Other major non-compliances can downgrade PGS-Organic to PGS-Green for one or two seasons.",
+    "applies_to": "farmer member",
+    "stage": "non-compliance",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s5.1 step 4",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Off-farm inputs and seeds",
+    "rule": "If a member uses or plans to use an off-farm input, the group must check its organic status and approve or prohibit it in a meeting, and use without approval is non-compliance. Hybrid and high-yielding seeds are allowed, genetically modified seeds are not, and untreated conventional seeds can be used only when organic seed is not available.",
+    "applies_to": "farmer member",
+    "stage": "production",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s5.1 step 2(g); PGS-India FAQ page",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "Moving from NPOP or natural farming",
+    "rule": "Operators moving from NPOP or the proposed natural-farming systems keep their certification status from the date the Regional Council accepts their application, provided they completed conversion as required by PGS-India standards and their scope certificate is valid on that date.",
+    "applies_to": "farmer member",
+    "stage": "certification",
+    "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s5.8",
+    "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  }
+]
