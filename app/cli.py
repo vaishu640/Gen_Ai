@@ -5,7 +5,9 @@ data = records.load_records()
 while True:
     print("\n1. Show all")
     print("2. Search")
-    print("3. Exit")
+    print("3. Find by ID")
+    print("4. Count by category")
+    print("5. Exit")
     choice = input("Choose: ")
 
     if choice == "1":
@@ -16,4 +18,15 @@ while True:
         for r in records.search(data, word):
             print(r["id"], r["product"], r["location"], r["price_per_kg"])
     elif choice == "3":
+        record_id = int(input("Enter ID: "))
+        r = records.get_by_id(data, record_id)
+        if r:
+            print(r["id"], r["product"], r["location"], r["price_per_kg"])
+        else:
+            print("Not found.")
+    elif choice == "4":
+        counts = records.count_by(data, "category")
+        for name in counts:
+            print(name, ":", counts[name])
+    elif choice == "5":
         break
