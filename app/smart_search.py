@@ -11,6 +11,10 @@ SYNONYMS = {
     "many": "minimum size number",
 }
 
+# If this share of the question's words is not in my records at all,
+# my data cannot answer the question.
+UNKNOWN_LIMIT = 0.5
+
 
 def load_records():
     with open("data/records.json", encoding="utf-8") as f:
@@ -29,8 +33,20 @@ class SmartSearch:
         texts = [(r["topic"] + " ") * 2 + r["rule"] for r in records]
         self.vectorizer = TfidfVectorizer(stop_words="english")
         self.matrix = self.vectorizer.fit_transform(texts)
+        self.analyzer = self.vectorizer.build_analyzer()
+
+    def unknown_ratio(self, query):
+        words = self.analyzer(query)
+        if len(words) == 0:
+            return 1.0
+        unknown = [w for w in words if w not in self.vectorizer.vocabulary_]
+        return len(unknown) / len(words)
 
     def search(self, query, top_k=3):
+        # the question is mostly about things my records never mention
+        if self.unknown_ratio(query) >= UNKNOWN_LIMIT:
+            return []
+
         query_vector = self.vectorizer.transform([expand(query)])
         scores = cosine_similarity(query_vector, self.matrix)[0]
         best = scores.argsort()[::-1][:top_k]
