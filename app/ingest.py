@@ -1,12 +1,17 @@
 import json
+import os
+import re
 from dataclasses import asdict
+from bs4 import BeautifulSoup
 from app.models import Record
 
 GUIDE_URL = "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
 FAQ_URL = "https://pgsindia-ncof.gov.in/faqs"
+FAQ_FILE = "data/raw/pgs_faqs.html"
 G = "PGS-India Revised Guidelines, Edition 2 (2023)"
 F = "PGS-India FAQ page"
 
+# Hand-checked rules
 # (topic, rule, applies_to, stage, source_doc, source_url)
 RULES = [
     ("Local group minimum size",
@@ -86,25 +91,161 @@ RULES = [
      "farmer member", "certification", G + ", s5.8", GUIDE_URL),
 ]
 
+# FAQ questions we skip because a hand-checked rule already covers them
+SKIP_WORDS = [
+    "land holding", "minimum requirements", "minimum documentation",
+    "pledge", "national standards of organic production",
+    "ngo based", "other pgs programs", "government approved",
+    "institutional networking",
+]
+PARSED_LIMIT = 12
+
+STAGE_WORDS = [
+    ("labelling", ["label", "logo"]),
+    ("peer-appraisal", ["peer", "apprais"]),
+    ("conversion", ["convers", "pgs-green", "parallel"]),
+    ("registration", ["regist", "pledge", "join", "make a pgs", "document",
+                      "endors", "application", "apply"]),
+    ("certification", ["certif"]),
+    ("standards", ["standard", "npop", "nsop"]),
+    ("production", ["seed", "input", "manure", "pesticide"]),
+]
+
+
+def guess_applies_to(question):
+    q = question.lower()
+    if "individual" in q:
+        return "individual farmer"
+    if "large area" in q or "village" in q:
+        return "village"
+    if "group" in q or " lg " in q:
+        return "local group"
+    if "regional council" in q:
+        return "regional council"
+    return "farmer member"
+
+
+def guess_stage(question, answer):
+    # look at the question first, then the answer
+    for text in (question.lower(), answer.lower()):
+        for stage, words in STAGE_WORDS:
+            for w in words:
+                if w in text:
+                    return stage
+    return "general"
+
+
+def trim(text, limit=500):
+    if len(text) <= limit:
+        return text
+    cut = text[:limit]
+    last = cut.rfind(".")
+    if last > 100:
+        cut = cut[:last + 1]
+    return cut
+
+
+def join_lines(lines):
+    # put a full stop between list items that have no punctuation
+    text = ""
+    for line in lines:
+        if text and text[-1] not in ".?!:;,":
+            text = text + "."
+        text = (text + " " + line).strip()
+    return text
+
+
+def parse_faq(path=FAQ_FILE):
+    """Read the downloaded FAQ page and return (question, answer) pairs."""
+    if not os.path.exists(path):
+        print("FAQ file not found in data/raw, using hand-checked rules only.")
+        return []
+
+    with open(path, encoding="utf-8", errors="ignore") as f:
+        soup = BeautifulSoup(f.read(), "html.parser")
+
+    for tag in soup(["script", "style", "nav", "footer", "header"]):
+        tag.decompose()
+
+    lines = []
+    for line in soup.get_text("\n").split("\n"):
+        line = " ".join(line.split())
+        if line:
+            lines.append(line)
+
+    pairs = []
+    question = None
+    answer = []
+    closed = False
+    for line in lines:
+        if line.endswith("?") and len(line) > 15:
+            if question and answer:
+                pairs.append((question, join_lines(answer)))
+            question = re.sub(r"^\d+[\.\)]\s*", "", line)
+            answer = []
+            closed = False
+        elif question:
+            if line in ("Q", "A", "Q A"):
+                closed = True      # the page's own "Q A" label ends the answer
+            elif not closed:
+                answer.append(line)
+    if question and answer:
+        pairs.append((question, join_lines(answer)))
+
+    return pairs
+
 
 def main():
     records = []
     bad = 0
 
+    # 1. hand-checked rules
     for row in RULES:
         try:
             topic, rule, applies_to, stage, source_doc, source_url = row
-            if not rule.strip() or not source_url.startswith("http"):
+            if rule.strip() == "" or not source_url.startswith("http"):
                 raise ValueError("bad row")
             records.append(asdict(Record(topic, rule, applies_to, stage,
                                          source_doc, source_url)))
+        except ValueError:
+            bad = bad + 1
+    hand_checked = len(records)
+
+    # 2. rules parsed from the downloaded FAQ page
+    seen = set(r["topic"].lower() for r in records)
+    parsed = 0
+    for question, answer in parse_faq():
+        if parsed >= PARSED_LIMIT:
+            break
+        try:
+            if any(w in question.lower() for w in SKIP_WORDS):
+                continue          # already covered by a hand-checked rule
+            rule = trim(re.split(r"\s+Q\s+A\b", answer)[0])
+            if len(rule) < 30:
+                raise ValueError("answer too short")
+            if question.lower() in seen:
+                continue
+            seen.add(question.lower())
+            rec = Record(
+                topic=question,
+                rule=rule,
+                applies_to=guess_applies_to(question),
+                stage=guess_stage(question, rule),
+                source_doc=F + " (parsed from data/raw/pgs_faqs.html)",
+                source_url=FAQ_URL,
+            )
+            records.append(asdict(rec))
+            parsed = parsed + 1
         except ValueError:
             bad = bad + 1
 
     with open("data/records.json", "w", encoding="utf-8") as f:
         json.dump(records, f, indent=2, ensure_ascii=False)
 
-    print("Saved", len(records), "records. Skipped", bad, "bad rows.")
+    print("Hand-checked rules:", hand_checked)
+    print("Parsed from FAQ:", parsed)
+    print("Skipped bad rows:", bad)
+    print("Saved", len(records), "records to data/records.json")
 
 
 if __name__ == "__main__":

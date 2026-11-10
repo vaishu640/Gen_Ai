@@ -150,5 +150,101 @@
     "stage": "certification",
     "source_doc": "PGS-India Revised Guidelines, Edition 2 (2023), s5.8",
     "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
+  },
+  {
+    "topic": "How PGS differs from third party certification?",
+    "rule": "As the name indicates the PGS is a participatory approach, wherein farmers living in similar geographical area (in the same vicinity of close-by villages) inspect and verify each other’s process and confirms the adoption of PGS standards, while third party certification (TPC) system is based on verification of process by an independent third party.",
+    "applies_to": "farmer member",
+    "stage": "certification",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "What are advantages of PGS over third party certification?",
+    "rule": "Important advantages of PGS-India over third party certification system are as follows: The procedures are simple; documents are basic and use the local language understandable to farmers. All the members are local and known to each other. Being themselves practicing organic farmers have high degree of understanding on day-to-day knowledge or acquaintance of the farm. Peer appraisers are among the group and live in the same village, therefore have better access to surveillance.",
+    "applies_to": "farmer member",
+    "stage": "certification",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "What are limitations of PGS?",
+    "rule": "PGS certification is only for farmers or communities that can organize and perform as a group within the village or in close-by villages with continuous territory and is applicable on, on-farm activities comprising of crop production, processing and livestock rearing (including bee keeping) and off-farm processing of their direct products under their supervision.",
+    "applies_to": "farmer member",
+    "stage": "certification",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Can PGS-India certified products be exported to other countries?",
+    "rule": "PGS-India certification program is applicable for local and domestic market. PGS certified products cannot be exported to other countries as organic but can be exported as conventional to get premium price if available.",
+    "applies_to": "farmer member",
+    "stage": "certification",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Can an individual farmer get PGS certification?",
+    "rule": "Yes, individual farmer can be certified under PGS-India program. But, Individual producer registration is an interim arrangement and the producer must initiate efforts to bring in other members from the village community to form the group in due course (maximum 2 years) and transform individual status to group status. In case if an individual farmer is unable to form a group even after 2 years, then Regional Council will attach the farmers with the nearest group.",
+    "applies_to": "individual farmer",
+    "stage": "certification",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Whether consumers, traders or other members away from the PGS local group can participate in certification process?",
+    "rule": "Yes, they can participate in peer appraisal and decision making (not mandatory). PGS-India provides for their participation to increase the trust. Joining PGS-India program by farmers and local group (LG)",
+    "applies_to": "local group",
+    "stage": "certification",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "How can I join PGS-India program?",
+    "rule": "One can join PGS-India program as Individual farmer or as PGS-India local group by making a new group of at least 5 members belonging to same or close-by villages, or through Large Area Certification. In case of Large Area Certification numbers of isolated villages in groups are certified as a whole.",
+    "applies_to": "farmer member",
+    "stage": "registration",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "How can I make a PGS-India local group?",
+    "rule": "To make a PGS-India local group, organize at least 5 members living in the same or close by villages into a group. Fill Annexure I-Application form, Annexure II farm history sheet and Annexure III farmers pledge for each member. Once these documents are ready for each member and members have agreed to follow PGS-India standards, and then fill LG application form, agreement form and terms of reference. Submit all copies duly signed in hard copies to Regional Council.",
+    "applies_to": "local group",
+    "stage": "registration",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Can landless farmers having only cattle or poultry join crop production PGS-India local group?",
+    "rule": "No, but landless farmers can opt for Livestock certification if they are having adequate facilities for livestock management. In such cases the group generally should be of similar type of farmers.",
+    "applies_to": "local group",
+    "stage": "registration",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Whether part conversion and parallel production is allowed in PGS-India program?",
+    "rule": "Although PGS-India philosophy do not promote part conversion or parallel production, but this can be adopted in initial years. But all out efforts are needed by the members to bring their entire landholding and livestock to organic in due course of time.",
+    "applies_to": "farmer member",
+    "stage": "conversion",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Is it necessary to have computer and internet facilities for a local group for on-line data management?",
+    "rule": "Although, it is preferred, but not mandatory",
+    "applies_to": "local group",
+    "stage": "general",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
+  },
+  {
+    "topic": "Can Local Group apply on-line for registration?",
+    "rule": "Yes LG can apply on-line Through PGS Webportal",
+    "applies_to": "local group",
+    "stage": "registration",
+    "source_doc": "PGS-India FAQ page (parsed from data/raw/pgs_faqs.html)",
+    "source_url": "https://pgsindia-ncof.gov.in/faqs"
   }
 ]
