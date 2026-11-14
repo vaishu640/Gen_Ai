@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from app.smart_search import SmartSearch, load_records
 from app.llm import ask_llm, parse_json_reply, LLMError
+from app.vectorstore import search_documents
 
 app = FastAPI(title="OrganicPath API")
 
@@ -58,6 +59,18 @@ def get_record(record_id: int):
 @app.get("/search")
 def search(q: str):
     return engine.search(q)
+# NEW: Semantic Search API
+@app.get("/search/semantic")
+def semantic_search(q: str):
+
+    results = search_documents(q)
+
+    return {
+        "question": q,
+        "total_results": len(results),
+        "results": results
+    }
+
 
 
 @app.post("/questions")
