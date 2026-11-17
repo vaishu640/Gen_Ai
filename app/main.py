@@ -2,7 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from app.smart_search import SmartSearch, load_records
 from app.llm import ask_llm, parse_json_reply, LLMError
-from app.vectorstore import search_documents
+from app.vectorstore import semantic_search, collection_size
+from app.rag import answer_question
 
 app = FastAPI(title="OrganicPath API")
 
@@ -20,6 +21,12 @@ class Question(BaseModel):
 class ChatRequest(BaseModel):
     question: str
     prompt_version: str = "v2"
+
+
+class AskRequest(BaseModel):
+    question: str
+    k: int = 3
+    chunk_words: int = 120
 
 
 def load_prompt(name):
@@ -59,22 +66,19 @@ def get_record(record_id: int):
 @app.get("/search")
 def search(q: str):
     return engine.search(q)
-# NEW: Semantic Search API
+
+
 @app.get("/search/semantic")
-def semantic_search(q: str):
-
-    results = search_documents(q)
-
-    return {
-        "question": q,
-        "total_results": len(results),
-        "results": results
-    }
-
+def search_semantic(q: str, k: int = 5):
+    if collection_size() == 0:
+        raise HTTPException(
+            status_code=503,
+            detail="The index is empty. Stop the server and run: python -m app.vectorstore")
+    return semantic_search(q, k)
 
 
 @app.post("/questions")
-def ask(body: Question):
+def ask_old(body: Question):
     results = engine.search(body.question)
     if len(results) == 0 or results[0]["score"] < 0.1:
         return {"answer": "I could not find this in the PGS-India documents I have.",
@@ -110,4 +114,20 @@ def chat(body: ChatRequest):
     result["sources"] = [{"id": r["id"], "topic": r["topic"],
                           "source_doc": r["source_doc"],
                           "source_url": r["source_url"]} for r in found]
+    return result
+
+
+@app.post("/ask")
+def ask(body: AskRequest):
+    if collection_size(body.chunk_words) == 0:
+        raise HTTPException(
+            status_code=503,
+            detail="This index is empty. Stop the server and run: python -m app.vectorstore")
+    try:
+        result = answer_question(body.question, body.k, body.chunk_words)
+    except LLMError as error:
+        raise HTTPException(status_code=502, detail=str(error))
+
+    result["retrieved"] = [{"title": h["title"], "page": h["page"],
+                            "distance": h["distance"]} for h in result["retrieved"]]
     return result
