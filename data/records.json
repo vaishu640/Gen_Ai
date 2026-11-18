@@ -152,6 +152,22 @@
     "source_url": "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
   },
   {
+    "topic": "Conversion period for annual crops",
+    "rule": "Before a farm can be certified organic it must complete a conversion period while following all the standards. The conversion period is 24 months for crops other than perennials. It can be reduced to 12 months at the discretion of the Regional Council if the standards were already met for several years and documents prove it.",
+    "applies_to": "farmer member",
+    "stage": "conversion",
+    "source_doc": "PGS-India Standards, Appendix 1, s7(a)(ii), s7(b)",
+    "source_url": "https://hpssopca.hp.gov.in/wp-content/uploads/2023/07/PGS_India_Standards.pdf"
+  },
+  {
+    "topic": "Conversion period for perennial crops",
+    "rule": "Before a farm can be certified organic it must complete a conversion period while following all the standards. The conversion period is 36 months for perennial plants. The conversion period can be dispensed with only in default organic areas with no history of prohibited substances, and only the PGS Secretariat can grant that, on the Regional Council's recommendation after physical verification.",
+    "applies_to": "farmer member",
+    "stage": "conversion",
+    "source_doc": "PGS-India Standards, Appendix 1, s7(a)(i), s7(c)",
+    "source_url": "https://hpssopca.hp.gov.in/wp-content/uploads/2023/07/PGS_India_Standards.pdf"
+  },
+  {
     "topic": "How PGS differs from third party certification?",
     "rule": "As the name indicates the PGS is a participatory approach, wherein farmers living in similar geographical area (in the same vicinity of close-by villages) inspect and verify each other’s process and confirms the adoption of PGS standards, while third party certification (TPC) system is based on verification of process by an independent third party.",
     "applies_to": "farmer member",

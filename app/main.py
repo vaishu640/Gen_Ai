@@ -131,3 +131,28 @@ def ask(body: AskRequest):
     result["retrieved"] = [{"title": h["title"], "page": h["page"],
                             "distance": h["distance"]} for h in result["retrieved"]]
     return result
+# ---------- Day 9: agent with memory and approval ----------
+from typing import Optional
+from app.llm import LLMError
+
+
+class AgentRequest(BaseModel):
+    session_id: str = "demo"
+    question: Optional[str] = None
+    decision: Optional[str] = None        # "approve" or "reject"
+
+
+@app.post("/agent")
+def agent(body: AgentRequest):
+    from app.graph import ask_agent, send_decision
+
+    if body.decision is None and not body.question:
+        raise HTTPException(status_code=400, detail="Send a question or a decision.")
+    try:
+        if body.decision is not None:
+            return send_decision(body.session_id, body.decision)
+        return ask_agent(body.session_id, body.question)
+    except ValueError as error:
+        raise HTTPException(status_code=409, detail=str(error))
+    except LLMError as error:
+        raise HTTPException(status_code=502, detail=str(error))

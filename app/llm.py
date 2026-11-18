@@ -1,9 +1,12 @@
 import json
 import os
+import time
+from pathlib import Path
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+# always use the .env at the main level (next to requirements.txt)
+load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=True)
 
 
 class LLMError(Exception):
@@ -14,27 +17,43 @@ def _groq(system, user):
     key = os.getenv("GROQ_API_KEY")
     if not key:
         raise LLMError("GROQ_API_KEY is missing in .env")
-    model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
-    try:
-        r = requests.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={"Authorization": "Bearer " + key},
-            json={
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": user},
-                ],
-                "temperature": 0.2,
-            },
-            timeout=30,
-        )
-        r.raise_for_status()
-        return r.json()["choices"][0]["message"]["content"]
-    except requests.exceptions.RequestException as error:
-        raise LLMError("Groq request failed: " + str(error))
-    except (KeyError, IndexError, ValueError):
-        raise LLMError("Groq sent an unexpected reply")
+    model = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
+
+    last_error = None
+    for attempt in range(4):
+        try:
+            r = requests.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={"Authorization": "Bearer " + key},
+                json={
+                    "model": model,
+                    "messages": [
+                        {"role": "system", "content": system},
+                        {"role": "user", "content": user},
+                    ],
+                    "temperature": 0.2,
+                },
+                timeout=60,
+            )
+            if r.status_code == 429:                  # rate limit: wait, then try again
+                last_error = "429 Too Many Requests (free tier rate limit)"
+                try:
+                    wait = float(r.headers.get("retry-after", 15))
+                except ValueError:
+                    wait = 15
+                time.sleep(min(max(wait, 5), 30))
+                continue
+            if r.status_code != 200:                  # show Groq's own explanation
+                raise LLMError("Groq error " + str(r.status_code) + ": " + r.text[:600])
+            return r.json()["choices"][0]["message"]["content"]
+        except requests.exceptions.ConnectionError as error:
+            last_error = error                        # connection was cut: wait, then try again
+            time.sleep(3)
+        except requests.exceptions.RequestException as error:
+            raise LLMError("Groq request failed: " + str(error))
+        except (KeyError, IndexError, ValueError):
+            raise LLMError("Groq sent an unexpected reply")
+    raise LLMError("Groq request failed: " + str(last_error))
 
 
 def _gemini(system, user):

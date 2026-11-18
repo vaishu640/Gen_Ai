@@ -89,6 +89,16 @@ RULES = [
     ("Moving from NPOP or natural farming",
      "Operators moving from NPOP or the proposed natural-farming systems keep their certification status from the date the Regional Council accepts their application, provided they completed conversion as required by PGS-India standards and their scope certificate is valid on that date.",
      "farmer member", "certification", G + ", s5.8", GUIDE_URL),
+
+    ("Conversion period for annual crops",
+     "Before a farm can be certified organic it must complete a conversion period while following all the standards. The conversion period is 24 months for crops other than perennials. It can be reduced to 12 months at the discretion of the Regional Council if the standards were already met for several years and documents prove it.",
+     "farmer member", "conversion", "PGS-India Standards, Appendix 1, s7(a)(ii), s7(b)",
+     "https://hpssopca.hp.gov.in/wp-content/uploads/2023/07/PGS_India_Standards.pdf"),
+
+    ("Conversion period for perennial crops",
+     "Before a farm can be certified organic it must complete a conversion period while following all the standards. The conversion period is 36 months for perennial plants. The conversion period can be dispensed with only in default organic areas with no history of prohibited substances, and only the PGS Secretariat can grant that, on the Regional Council's recommendation after physical verification.",
+     "farmer member", "conversion", "PGS-India Standards, Appendix 1, s7(a)(i), s7(c)",
+     "https://hpssopca.hp.gov.in/wp-content/uploads/2023/07/PGS_India_Standards.pdf"),
 ]
 
 # FAQ questions we skip because a hand-checked rule already covers them
