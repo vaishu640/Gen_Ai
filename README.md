@@ -37,3 +37,19 @@ question).
 than A (for example smaller chunks and more results), and what the table shows.
 
 Full results: [eval/eval_results.md](eval/eval_results.md)
+
+## OrganicPath app (Day 10)
+
+- **Chat** with the official PGS-India documents. Answers show their sources and page, can be rated 👍/👎 (saved in `data/feedback.jsonl`), and say "I don't know" when the documents do not contain the answer.
+- **Peer-appraisal readiness checklist**: the group ticks the standard appraisal points per farmer and sees a group readiness score, with a red flag for any farmer whose default would put the group at risk.
+
+Run it (two terminals):
+
+```
+python -m uvicorn app.main:app
+python -m streamlit run ui/app.py
+```
+
+![Chat with citations](docs/ui_chat.png)
+
+![Peer-appraisal readiness checklist](docs/ui_checklist.png)

@@ -8,3 +8,4 @@ python-dotenv
 chromadb
 pypdf
 langgraph
+streamlit
