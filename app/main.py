@@ -1,9 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from app.smart_search import SmartSearch, load_records
-from app.llm import ask_llm, parse_json_reply, LLMError
-from app.vectorstore import semantic_search, collection_size
+
+from app.llm import LLMError, ask_llm, parse_json_reply
 from app.rag import answer_question
+from app.smart_search import SmartSearch, load_records
+from app.vectorstore import collection_size, semantic_search
 
 app = FastAPI(title="OrganicPath API")
 
@@ -132,14 +133,12 @@ def ask(body: AskRequest):
                             "distance": h["distance"]} for h in result["retrieved"]]
     return result
 # ---------- Day 9: agent with memory and approval ----------
-from typing import Optional
-from app.llm import LLMError
 
 
 class AgentRequest(BaseModel):
     session_id: str = "demo"
-    question: Optional[str] = None
-    decision: Optional[str] = None        # "approve" or "reject"
+    question: str | None = None
+    decision: str | None = None        # "approve" or "reject"
 
 
 @app.post("/agent")

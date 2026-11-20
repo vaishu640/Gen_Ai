@@ -2,7 +2,9 @@ import json
 import os
 import re
 from dataclasses import asdict
+
 from bs4 import BeautifulSoup
+
 from app.models import Record
 
 GUIDE_URL = "https://pgsindia-ncof.gov.in/uploads/operational_manuals/165217720544Revised_PGS_India_Guidlines.pdf"
@@ -222,7 +224,7 @@ def main():
     hand_checked = len(records)
 
     # 2. rules parsed from the downloaded FAQ page
-    seen = set(r["topic"].lower() for r in records)
+    seen = {r["topic"].lower() for r in records}
     parsed = 0
     for question, answer in parse_faq():
         if parsed >= PARSED_LIMIT:

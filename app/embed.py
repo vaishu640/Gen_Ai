@@ -1,6 +1,7 @@
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
+
 from app.chunking import create_chunks
 
 model = SentenceTransformer("all-MiniLM-L6-v2")

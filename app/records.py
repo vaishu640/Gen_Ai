@@ -1,5 +1,6 @@
 import json
 
+
 def load_records():
     with open("data/sample_records.json") as f:
         return json.load(f)

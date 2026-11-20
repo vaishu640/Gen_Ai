@@ -1,9 +1,8 @@
 
 import json
 
-from app.llm import ask_llm, LLMError
+from app.llm import LLMError, ask_llm
 from app.tools import call_tool
-
 
 MAX_STEPS = 4
 

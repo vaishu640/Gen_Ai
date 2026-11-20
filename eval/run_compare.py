@@ -1,5 +1,6 @@
 import time
-from app.main import chat, ChatRequest
+
+from app.main import ChatRequest, chat
 
 QUESTIONS = [
     "How many farmers are needed to form a PGS-India local group?",

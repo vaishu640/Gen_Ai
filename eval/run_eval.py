@@ -1,7 +1,8 @@
 import json
 import time
-from app.rag import answer_question, normalize
+
 from app.llm import LLMError
+from app.rag import answer_question, normalize
 from app.vectorstore import collection_size
 
 CONFIGS = [

@@ -1,7 +1,8 @@
 import json
 import re
-from app.vectorstore import semantic_search, DEFAULT_WORDS
+
 from app.llm import ask_llm
+from app.vectorstore import DEFAULT_WORDS, semantic_search
 
 IDK = "I don't know. This is not in the PGS-India documents I have."
 

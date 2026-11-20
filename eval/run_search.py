@@ -1,5 +1,6 @@
 import chromadb
 import numpy as np
+
 from app.embed import generate_embeddings
 
 QUESTIONS = [
