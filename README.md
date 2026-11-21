@@ -60,3 +60,19 @@ python -m streamlit run ui/app.py
 2. Build and start both services:
    ```bash
    docker compose up --build
+
+   ## Run with Docker
+
+1. Ensure Docker Desktop is running and `.env` is configured.
+2. Build and start both services:
+   ```bash
+   docker compose up --build
+   ```
+
+## Live Deployment
+
+- **Live API:** [https://organicpath-api.onrender.com](https://organicpath-api.onrender.com)
+- **Health Check:** [https://organicpath-api.onrender.com/health](https://organicpath-api.onrender.com/health)
+- **API Docs:** [https://organicpath-api.onrender.com/docs](https://organicpath-api.onrender.com/docs)
+
+![CI](https://github.com/vaishu640/Gen_Ai/actions/workflows/ci.yml/badge.svg)
