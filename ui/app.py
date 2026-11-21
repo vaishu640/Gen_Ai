@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -12,7 +13,8 @@ import streamlit as st
 
 from app.appraisal import check_group, load_points
 
-API = "http://127.0.0.1:8000"
+# In Docker the API is in another container, so its address comes from a setting.
+API = os.environ.get("API_URL", "http://127.0.0.1:8000")
 FEEDBACK_FILE = ROOT / "data" / "feedback.jsonl"
 
 st.set_page_config(page_title="OrganicPath", page_icon="🌱", layout="wide")
@@ -45,9 +47,14 @@ def demo_group(points):
         for p in points:
             row[p["id"]] = True
         rows.append(row)
-    rows[2]["soil_fertility"] = False      # Farmer 3: a prohibited-substance point missing
-    rows[6]["diversity"] = False           # Farmer 7: a smaller point missing
-    rows[8]["livestock"] = False           # Farmer 9: a smaller point missing
+
+    # a few gaps so the flags show up (demo data, not real farmers)
+    gaps = [(2, "soil_fertility"),   # Farmer 3: a prohibited-substance point missing
+            (6, "diversity"),        # Farmer 7: a smaller point missing
+            (8, "livestock")]        # Farmer 9: a smaller point missing
+    for index, point_id in gaps:
+        if point_id in rows[index]:
+            rows[index][point_id] = False
     return pd.DataFrame(rows)
 
 

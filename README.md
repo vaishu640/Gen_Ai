@@ -53,3 +53,10 @@ python -m streamlit run ui/app.py
 ![Chat with citations](docs/ui_chat.png)
 
 ![Peer-appraisal readiness checklist](docs/ui_checklist.png)
+
+## Run with Docker
+
+1. Ensure Docker Desktop is running and `.env` is configured.
+2. Build and start both services:
+   ```bash
+   docker compose up --build
