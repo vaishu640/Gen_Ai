@@ -78,7 +78,7 @@ with tab_chat:
                     col1.button("👍", key="up" + str(i), on_click=save_feedback, args=(i, "up"))
                     col2.button("👎", key="down" + str(i), on_click=save_feedback, args=(i, "down"))
 
-    question = st.chat_input("Ask a question about PGS-India certification")
+        question = st.chat_input("Ask a question about PGS-India certification", max_chars=500)
     if question:
         st.session_state.messages.append({"role": "user", "content": question})
         try:

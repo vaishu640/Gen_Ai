@@ -1,8 +1,9 @@
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+from app.ask_service import InputError, handle_ask
 from app.llm import LLMError, ask_llm, parse_json_reply
-from app.rag import answer_question
 from app.smart_search import SmartSearch, load_records
 from app.vectorstore import collection_size, semantic_search
 
@@ -28,6 +29,12 @@ class AskRequest(BaseModel):
     question: str
     k: int = 3
     chunk_words: int = 120
+
+
+class AgentRequest(BaseModel):
+    session_id: str = "demo"
+    question: str | None = None
+    decision: str | None = None        # "approve" or "reject"
 
 
 def load_prompt(name):
@@ -120,30 +127,17 @@ def chat(body: ChatRequest):
 
 @app.post("/ask")
 def ask(body: AskRequest):
-    if collection_size(body.chunk_words) == 0:
-        raise HTTPException(
-            status_code=503,
-            detail="This index is empty. Stop the server and run: python -m app.vectorstore")
     try:
-        result = answer_question(body.question, body.k, body.chunk_words)
+        return handle_ask(body.question, body.k, body.chunk_words)
+    except InputError as error:
+        raise HTTPException(status_code=error.status_code, detail=str(error))
     except LLMError as error:
         raise HTTPException(status_code=502, detail=str(error))
-
-    result["retrieved"] = [{"title": h["title"], "page": h["page"],
-                            "distance": h["distance"]} for h in result["retrieved"]]
-    return result
-# ---------- Day 9: agent with memory and approval ----------
-
-
-class AgentRequest(BaseModel):
-    session_id: str = "demo"
-    question: str | None = None
-    decision: str | None = None        # "approve" or "reject"
 
 
 @app.post("/agent")
 def agent(body: AgentRequest):
-    from app.graph import ask_agent, send_decision
+    from app.graph import ask_agent, send_decision  # LangGraph is loaded only here
 
     if body.decision is None and not body.question:
         raise HTTPException(status_code=400, detail="Send a question or a decision.")

@@ -3,8 +3,10 @@ import sys
 import types
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parent.parent
-os.chdir(ROOT)  # the app reads data/ and prompts/ with relative paths
+os.chdir(ROOT)                      # the app reads data/ and prompts/ with relative paths
 sys.path.insert(0, str(ROOT))
 
 FAKE_HITS = [
@@ -16,7 +18,7 @@ FAKE_HITS = [
         "source": "pgs_guidelines_2023.pdf",
         "source_url": "https://example.org/guidelines.pdf",
         "text": "A Local group should comprise of minimum 5 members belonging to the "
-        "same village or close by villages.",
+                "same village or close by villages.",
     },
     {
         "id": "faq-p1-c4",
@@ -26,7 +28,7 @@ FAKE_HITS = [
         "source": "pgs_faqs.html",
         "source_url": "https://example.org/faqs",
         "text": "To make a local group, organize at least 5 members living in the "
-        "same or close by villages.",
+                "same or close by villages.",
     },
 ]
 
@@ -46,3 +48,12 @@ fake_vectorstore.DEFAULT_WORDS = 120
 fake_vectorstore.semantic_search = fake_semantic_search
 fake_vectorstore.collection_size = fake_collection_size
 sys.modules["app.vectorstore"] = fake_vectorstore
+
+
+@pytest.fixture(autouse=True)
+def clean_state(tmp_path, monkeypatch):
+    """Every test starts with an empty cache and writes its log to a temp folder."""
+    from app import ask_service, cache
+    cache.clear()
+    monkeypatch.setattr(ask_service, "LOG_FILE", tmp_path / "ask_log.jsonl")
+    yield

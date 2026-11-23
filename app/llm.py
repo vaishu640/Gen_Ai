@@ -1,5 +1,6 @@
 import json
 import os
+import threading
 import time
 from pathlib import Path
 
@@ -12,6 +13,33 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env", override=True)
 
 class LLMError(Exception):
     pass
+
+
+# ---------- token counting (one counter per request thread) ----------
+_local = threading.local()
+
+
+def reset_usage():
+    _local.usage = {"prompt_tokens": 0, "completion_tokens": 0,
+                    "total_tokens": 0, "llm_calls": 0}
+
+
+def get_usage():
+    usage = getattr(_local, "usage", None)
+    if usage is None:
+        reset_usage()
+        usage = _local.usage
+    return dict(usage)
+
+
+def _add_usage(prompt_tokens, completion_tokens):
+    if getattr(_local, "usage", None) is None:
+        reset_usage()
+    _local.usage["prompt_tokens"] += int(prompt_tokens or 0)
+    _local.usage["completion_tokens"] += int(completion_tokens or 0)
+    _local.usage["total_tokens"] = (_local.usage["prompt_tokens"]
+                                    + _local.usage["completion_tokens"])
+    _local.usage["llm_calls"] += 1
 
 
 def _groq(system, user):
@@ -44,9 +72,12 @@ def _groq(system, user):
                     wait = 15
                 time.sleep(min(max(wait, 5), 30))
                 continue
-            if r.status_code != 200:                  # show Groq's own explanation
+            if r.status_code != 200:
                 raise LLMError("Groq error " + str(r.status_code) + ": " + r.text[:600])
-            return r.json()["choices"][0]["message"]["content"]
+            data = r.json()
+            usage = data.get("usage") or {}
+            _add_usage(usage.get("prompt_tokens", 0), usage.get("completion_tokens", 0))
+            return data["choices"][0]["message"]["content"]
         except requests.exceptions.ConnectionError as error:
             last_error = error                        # connection was cut: wait, then try again
             time.sleep(3)
@@ -73,7 +104,10 @@ def _gemini(system, user):
         r = requests.post(url, headers={"x-goog-api-key": key},
                           json=body, timeout=30)
         r.raise_for_status()
-        return r.json()["candidates"][0]["content"]["parts"][0]["text"]
+        data = r.json()
+        usage = data.get("usageMetadata") or {}
+        _add_usage(usage.get("promptTokenCount", 0), usage.get("candidatesTokenCount", 0))
+        return data["candidates"][0]["content"]["parts"][0]["text"]
     except requests.exceptions.RequestException as error:
         raise LLMError("Gemini request failed: " + str(error))
     except (KeyError, IndexError, ValueError):
