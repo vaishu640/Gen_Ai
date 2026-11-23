@@ -1,5 +1,6 @@
 import statistics
 import time
+
 from fastapi.testclient import TestClient
 
 from app import cache
