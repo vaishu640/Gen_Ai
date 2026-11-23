@@ -76,3 +76,20 @@ python -m streamlit run ui/app.py
 - **API Docs:** [https://organicpath-api.onrender.com/docs](https://organicpath-api.onrender.com/docs)
 
 ![CI](https://github.com/vaishu640/Gen_Ai/actions/workflows/ci.yml/badge.svg)
+
+## Architecture
+
+```mermaid
+flowchart LR
+  U["Farmer group"] --> UI["Streamlit UI"]
+  UI -->|"/ask"| API["FastAPI"]
+  UI -->|"/agent"| API
+  API --> G{"Input check<br/>500 chars, injection filter"}
+  G -->|"blocked"| R["Refusal, no model call"]
+  G --> C{"Cache<br/>1 hour, 100 answers"}
+  C -->|"hit"| OUT["Answer + citations + meta"]
+  C -->|"miss"| S["Semantic search<br/>Chroma + MiniLM"]
+  S --> L["LLM (Groq)<br/>answers only from the chunks"]
+  L --> OUT
+  D[("PGS-India documents<br/>2 PDFs + FAQ page")] -->|"fetch, chunk, embed"| S
+  API --> LOG[("ask_log.jsonl<br/>latency + tokens")]
