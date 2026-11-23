@@ -77,6 +77,11 @@ python -m streamlit run ui/app.py
 
 ![CI](https://github.com/vaishu640/Gen_Ai/actions/workflows/ci.yml/badge.svg)
 
+## Demo Video
+[Watch the OrganicPath Demo Video]https://drive.google.com/file/d/1QskPKGgvO1a-9wdeBkHM3Xtoxb9t_ubV/view?usp=sharing
+
+
+
 ## Architecture
 
 ```mermaid
@@ -93,7 +98,4 @@ flowchart LR
     L --> OUT
     D[("PGS-India documents<br/>2 PDFs + FAQ page")] -->|"fetch, chunk, embed"| S
     API --> LOG[("ask_log.jsonl<br/>latency + tokens")]
-
-## Demo Video
-[Watch the OrganicPath Demo Video]https://drive.google.com/file/d/1QskPKGgvO1a-9wdeBkHM3Xtoxb9t_ubV/view?usp=sharing
 
