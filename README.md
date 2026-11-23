@@ -93,3 +93,6 @@ flowchart LR
   L --> OUT
   D[("PGS-India documents<br/>2 PDFs + FAQ page")] -->|"fetch, chunk, embed"| S
   API --> LOG[("ask_log.jsonl<br/>latency + tokens")]
+
+
+
