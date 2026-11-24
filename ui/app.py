@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT))          # so "from app...." works inside Streamlit
+sys.path.insert(0, str(ROOT))  # so "from app...." works inside Streamlit
 
 import pandas as pd
 import requests
@@ -49,9 +49,11 @@ def demo_group(points):
         rows.append(row)
 
     # a few gaps so the flags show up (demo data, not real farmers)
-    gaps = [(2, "soil_fertility"),   # Farmer 3: a prohibited-substance point missing
-            (6, "diversity"),        # Farmer 7: a smaller point missing
-            (8, "livestock")]        # Farmer 9: a smaller point missing
+    gaps = [
+        (2, "soil_fertility"),  # Farmer 3: a prohibited-substance point missing
+        (6, "diversity"),  # Farmer 7: a smaller point missing
+        (8, "livestock"),  # Farmer 9: a smaller point missing
+    ]
     for index, point_id in gaps:
         if point_id in rows[index]:
             rows[index][point_id] = False
@@ -62,8 +64,10 @@ tab_chat, tab_check = st.tabs(["💬 Chat", "✅ Peer-appraisal readiness checkl
 
 # ---------------- Chat ----------------
 with tab_chat:
-    st.caption("Answers come only from the official PGS-India documents. "
-               "If they do not contain the answer, the bot says it does not know.")
+    st.caption(
+        "Answers come only from the official PGS-India documents. "
+        "If they do not contain the answer, the bot says it does not know."
+    )
 
     for i, msg in enumerate(st.session_state.messages):
         with st.chat_message(msg["role"]):
@@ -78,26 +82,42 @@ with tab_chat:
                     col1.button("👍", key="up" + str(i), on_click=save_feedback, args=(i, "up"))
                     col2.button("👎", key="down" + str(i), on_click=save_feedback, args=(i, "down"))
 
-        question = st.chat_input("Ask a question about PGS-India certification", max_chars=500)
+    question = st.chat_input("Ask a question about PGS-India certification...")
+
     if question:
         st.session_state.messages.append({"role": "user", "content": question})
         try:
-            r = requests.post(API + "/ask",
-                              json={"question": question, "k": 5, "chunk_words": 60},
-                              timeout=180)
+            r = requests.post(
+                API + "/ask",
+                json={"question": question, "k": 5, "chunk_words": 60},
+                timeout=180,
+            )
             if r.status_code == 200:
                 data = r.json()
-                st.session_state.messages.append({
-                    "role": "assistant", "content": data["answer"],
-                    "citations": data.get("citations", []), "question": question})
+                st.session_state.messages.append(
+                    {
+                        "role": "assistant",
+                        "content": data["answer"],
+                        "citations": data.get("citations", []),
+                        "question": question,
+                    }
+                )
             else:
-                st.session_state.messages.append({
-                    "role": "assistant", "error": True,
-                    "content": "API error " + str(r.status_code) + ": " + r.text[:300]})
+                st.session_state.messages.append(
+                    {
+                        "role": "assistant",
+                        "error": True,
+                        "content": "API error " + str(r.status_code) + ": " + r.text[:300],
+                    }
+                )
         except requests.exceptions.RequestException:
-            st.session_state.messages.append({
-                "role": "assistant", "error": True,
-                "content": "Cannot reach the API. Is the server running?"})
+            st.session_state.messages.append(
+                {
+                    "role": "assistant",
+                    "error": True,
+                    "content": "Cannot reach the API. Is the server running?",
+                }
+            )
         st.rerun()
 
 # ---------------- Checklist ----------------
@@ -123,8 +143,12 @@ with tab_check:
     for p in points:
         config[p["id"]] = st.column_config.CheckboxColumn(p["name"], default=False, help=p["check"])
 
-    table = st.data_editor(st.session_state.group_df, column_config=config,
-                           num_rows="dynamic", key="editor" + str(st.session_state.version))
+    table = st.data_editor(
+        st.session_state.group_df,
+        column_config=config,
+        num_rows="dynamic",
+        key="editor" + str(st.session_state.version),
+    )
 
     farmers = []
     for _, row in table.iterrows():
@@ -159,13 +183,15 @@ with tab_check:
     labels = {"red": "🔴 Red flag", "amber": "🟠 Needs work", "green": "🟢 Ready"}
     rows = []
     for r in result["rows"]:
-        rows.append({
-            "Farmer": r["name"],
-            "Status": labels[r["status"]],
-            "Points met": str(r["met"]) + " / " + str(len(points)),
-            "Missing": ", ".join(r["missing"]) or "-",
-            "Why": " ".join(r["why"]) or "-",
-        })
+        rows.append(
+            {
+                "Farmer": r["name"],
+                "Status": labels[r["status"]],
+                "Points met": str(r["met"]) + " / " + str(len(points)),
+                "Missing": ", ".join(r["missing"]) or "-",
+                "Why": " ".join(r["why"]) or "-",
+            }
+        )
     st.dataframe(pd.DataFrame(rows), hide_index=True)
 
     with st.expander("How the red flags work"):
@@ -175,4 +201,5 @@ with tab_check:
             "than 5 members.\n"
             "- 🟠 **Needs work**: another point is missing.\n"
             "- 🟢 **Ready**: every point is met.\n"
-            "- **Score** = points met by all farmers out of all points possible.")
+            "- **Score** = points met by all farmers out of all points possible."
+        )
